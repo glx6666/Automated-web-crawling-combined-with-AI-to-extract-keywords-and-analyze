@@ -32,12 +32,12 @@ logging.basicConfig(
 )
 
 SITE_KEYWORDS = {
-    'us': r'Best\sSellers\sRank',
-    'uk': r'Best\sSellers\sRank',
-    'fr': r'Classement\s+des\s+meilleures\s+ventes\s+d\'Amazon',
-    'de': r'Amazon\s+Bestseller-Rang',
-    'it': r'Posizione\s+nel\s+ranking\s+Venditori\s+su\s+Amazon',
-    'es': r'Clasificación\s+en\s+los\s+más\s+vendidos\s+de\s+Amazon'
+    'us': r'',
+    'uk': r'',
+    'fr': r'',
+    'de': r'',
+    'it': r'',
+    'es': r''
 }
 
 
@@ -105,10 +105,10 @@ class ProductDetailScraper:
         '''
         dog = self._safe_get_element("xpath", "//div[@id='g']/div/a/img")
         if dog is not None:
-            self.logger.error("❌ ASIN不存在")
+            self.logger.error(" ASIN不存在")
             return False
         else:
-            self.logger.info("✅ ASIN存在")
+            self.logger.info(" ASIN存在")
             return True
 
     @contextmanager
@@ -1030,3 +1030,4 @@ class ProductDetailScraper:
             redis_conn.hset("task_status", msg_id, "processing")
             last_heartbeat = now
         return last_heartbeat
+
