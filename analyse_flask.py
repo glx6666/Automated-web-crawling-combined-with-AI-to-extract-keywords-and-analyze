@@ -10,7 +10,7 @@ from logging.handlers import TimedRotatingFileHandler
 import os
 
 # --- 日志配置 ---
-log_file = "/home/uatu-offline-server/uatu-python/keyword_competitors/amazon_helper.log"
+log_file = "/amazon_helper.log"
 log_dir = os.path.dirname(log_file)
 os.makedirs(log_dir, exist_ok=True)
 
@@ -36,58 +36,58 @@ app = Flask(__name__)
 # --- 多站点配置 ---
 SITE_CONFIGS = {
     'us': {
-        'DB_HOST': 'rm-bp1n5rqs1z21tbz965o.mysql.rds.aliyuncs.com',
-        'DB_USER': 'Uatu',
-        'DB_PASSWORD': 'UatuAI@Aliyun2025',
-        'DB_NAME': 'amazon_asins_uk',
-        'MODEL_PATH': 'sentence-transformers/all-MiniLM-L6-v2',
-        'REDIS_HOST': 'r-bp16mty8tqvnridzlppd.redis.rds.aliyuncs.com',
+        'DB_HOST': '',
+        'DB_USER': '',
+        'DB_PASSWORD': '',
+        'DB_NAME': '',
+        'MODEL_PATH': '/all-MiniLM-L6-v2',
+        'REDIS_HOST': '',
         'REDIS_PORT': 6379,
-        'REDIS_PASSWORD': 'Uatu2025@Redis',
+        'REDIS_PASSWORD': '',
         'REDIS_DB': 10,
     },
     'ca': {
-        'DB_HOST': 'rm-bp1n5rqs1z21tbz965o.mysql.rds.aliyuncs.com',
-        'DB_USER': 'Uatu',
-        'DB_PASSWORD': 'UatuAI@Aliyun2025',
-        'DB_NAME': 'amazon_asins_uk',
-        'MODEL_PATH': 'sentence-transformers/all-MiniLM-L6-v2',
-        'REDIS_HOST': 'r-bp16mty8tqvnridzlppd.redis.rds.aliyuncs.com',
+        'DB_HOST': '',
+        'DB_USER': '',
+        'DB_PASSWORD': '',
+        'DB_NAME': '',
+        'MODEL_PATH': '/all-MiniLM-L6-v2',
+        'REDIS_HOST': '',
         'REDIS_PORT': 6379,
-        'REDIS_PASSWORD': 'Uatu2025@Redis',
+        'REDIS_PASSWORD': '',
         'REDIS_DB': 11,
     },
     'uk': {
-            'DB_HOST': 'rm-bp1n5rqs1z21tbz965o.mysql.rds.aliyuncs.com',
-            'DB_USER': 'Uatu',
-            'DB_PASSWORD': 'UatuAI@Aliyun2025',
-            'DB_NAME': 'amazon_asins_uk',
-            'MODEL_PATH': 'sentence-transformers/all-MiniLM-L6-v2',
-            'REDIS_HOST': 'r-bp16mty8tqvnridzlppd.redis.rds.aliyuncs.com',
+            'DB_HOST': '',
+            'DB_USER': '',
+            'DB_PASSWORD': '',
+            'DB_NAME': '',
+            'MODEL_PATH': '/all-MiniLM-L6-v2',
+            'REDIS_HOST': '',
             'REDIS_PORT': 6379,
-            'REDIS_PASSWORD': 'Uatu2025@Redis',
+            'REDIS_PASSWORD': '',
             'REDIS_DB': 12,
         },
     'fr': {
-            'DB_HOST': 'rm-bp1n5rqs1z21tbz965o.mysql.rds.aliyuncs.com',
-            'DB_USER': 'Uatu',
-            'DB_PASSWORD': 'UatuAI@Aliyun2025',
-            'DB_NAME': 'amazon_asins_uk',
-            'MODEL_PATH': 'sentence-transformers/all-MiniLM-L6-v2',
-            'REDIS_HOST': 'r-bp16mty8tqvnridzlppd.redis.rds.aliyuncs.com',
+            'DB_HOST': '',
+            'DB_USER': '',
+            'DB_PASSWORD': '',
+            'DB_NAME': '',
+            'MODEL_PATH': '/all-MiniLM-L6-v2',
+            'REDIS_HOST': '',
             'REDIS_PORT': 6379,
-            'REDIS_PASSWORD': 'Uatu2025@Redis',
+            'REDIS_PASSWORD': '',
             'REDIS_DB': 13,
         },
     'de': {
-            'DB_HOST': 'rm-bp1n5rqs1z21tbz965o.mysql.rds.aliyuncs.com',
-            'DB_USER': 'Uatu',
-            'DB_PASSWORD': 'UatuAI@Aliyun2025',
-            'DB_NAME': 'amazon_asins_uk',
-            'MODEL_PATH': 'sentence-transformers/all-MiniLM-L6-v2',
-            'REDIS_HOST': 'r-bp16mty8tqvnridzlppd.redis.rds.aliyuncs.com',
+            'DB_HOST': '',
+            'DB_USER': '',
+            'DB_PASSWORD': '',
+            'DB_NAME': '',
+            'MODEL_PATH': '/all-MiniLM-L6-v2',
+            'REDIS_HOST': '',
             'REDIS_PORT': 6379,
-            'REDIS_PASSWORD': 'Uatu2025@Redis',
+            'REDIS_PASSWORD': '',
             'REDIS_DB': 13,
         }
 }
@@ -228,3 +228,4 @@ def competitors(site_code, ad_asin, keyword):
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, threaded=True)
+
