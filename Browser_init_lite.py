@@ -289,16 +289,16 @@ SITE_CONFIGS = {
             "locators": {
                 "zip_input": (By.ID, "GLUXZipUpdateInput"),  # 假设英国站输入框ID与美国站类似
                 "LOCATORS_FR": [
-                            # ✅ 方法1：通过 aria-labelledby 精准匹配 submit 按钮（最推荐）
+                            #方法1：通过 aria-labelledby 精准匹配 submit 按钮（最推荐）
                             (By.XPATH, "//input[@type='submit' and contains(@class, 'a-button-input') and @aria-labelledby='GLUXZipUpdate-announce']"),
 
-                            # ✅ 方法2：通过按钮文字 'Actualiser' 向上回溯找到对应 input（文字匹配，次稳）
+                            # 方法2：通过按钮文字 'Actualiser' 向上回溯找到对应 input（文字匹配，次稳）
                             (By.XPATH, "//span[@id='GLUXZipUpdate-announce' and text()='Actualiser']/preceding-sibling::input[@type='submit']"),
 
-                            # ✅ 方法3：匹配整个按钮容器 <span>（如需点击按钮包裹层而不是 input）
+                            # 方法3：匹配整个按钮容器 <span>（如需点击按钮包裹层而不是 input）
                             (By.XPATH, "//span[@data-action='GLUXPostalUpdateAction']//input[@type='submit']"),
 
-                            # ✅ 方法4：点击整个按钮文本容器（如果 input 不可点击）
+                            # 方法4：点击整个按钮文本容器（如果 input 不可点击）
                             (By.XPATH, "//span[@id='GLUXZipUpdate-announce' and text()='Actualiser']")
                         ]
 
@@ -458,14 +458,12 @@ class ProxyManager:
     def __init__(self):
         self.primary_proxy = 0  # 当前使用的主代理索引
         self.proxy_group = [
-            'http://i588.kdltps.com:15818',  # 快代理1主
-            'http://1589.kdltps.com:15818',  # 快代理1备
-            # 'http://w272.kdltps.com:15818',  # 快代理2主
-            # 'http://w273.kdltps.com:15818'   # 快代理2备
+            'http:',  # 快代理1主
+            'http:',  # 快代理1备
         ]
         self.last_group_time = datetime.min  # 上次使用组的时间戳，初始化都为0
-        self.change_ip = "https://tps.kdlapi.com/api/changetpsip?secret_id=osubqy5yvo1cejktu1r9&signature=xcl90fq11gq0g7gjx5qxvku4v1zp4ol0"
-        # self.change_ip = "https://tps.kdlapi.com/api/changetpsip?secret_id=ovq4qmwywbozastj3tsr&signature=ujit02knelk4tb96pixk6npfgvng34kh"
+        self.change_ip = ""
+        # self.change_ip = ""
         self.change_ip_num = 0
         # 状态跟踪
         self.current_proxy = None  # 当前使用的完整代理地址
@@ -604,13 +602,7 @@ class AmazonScraper:
                                                     """
 
         # 代理验证网站
-        self.validate_url = [
-            # "https://192.168.28.1/"
-            "https://myip.ipip.net/",
-            "https://dev.kdlapi.com/testproxy",
-            "https://httpbin.org/ip",
-            #"https://myip.ipip.net/",
-        ]
+        self.validate_url = [ ]
 
         # 开始初始化
         while not self.is_ready:
@@ -696,7 +688,7 @@ class AmazonScraper:
             # 浏览器配置
             if self.site == "uk":
                 options.add_argument("--start-maximized")  # 英国站可能需要全屏
-            chrome_binary = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+            chrome_binary = r"path\to\chrome.exe"
             options.binary_location = chrome_binary
             options.add_experimental_option("prefs", prefs)  # 禁用非必要加载项
             options.add_argument(f"--window-size={width},{height}")
@@ -986,10 +978,10 @@ class AmazonScraper:
                             submit_button = WebDriverWait(self.driver, 5).until(
                                 EC.element_to_be_clickable(locator)
                             )
-                            logging.info(f"✅ 定位器#{idx} 成功找到设置按钮")
+                            logging.info(f"定位器#{idx} 成功找到设置按钮")
                             break
                         except Exception as e:
-                            logging.warning(f"⚠️ 定位器#{idx} 失败: {str(e)}")
+                            logging.warning(f"定位器#{idx} 失败: {str(e)}")
                             # self._capture_debug_snapshot(f"locator_{idx}_fail")
                     if not submit_button:
                         self._manual_debug_helper(None)
@@ -1015,7 +1007,7 @@ class AmazonScraper:
                         success = True
                         break
                     except Exception as e:
-                        logging.warning(f"⚠️ 未检测到成功状态: {str(e)}")
+                        logging.warning(f"未检测到成功状态: {str(e)}")
                         self.driver.execute_script("""
                                            try {
                                                document.querySelector('button[data-action=a-popover-close]').click();
@@ -1040,10 +1032,10 @@ class AmazonScraper:
                             submit_button = WebDriverWait(self.driver, 5).until(
                                 EC.element_to_be_clickable(locator)
                             )
-                            logging.info(f"✅ 定位器#{idx} 成功找到设置按钮")
+                            logging.info(f"定位器#{idx} 成功找到设置按钮")
                             break
                         except Exception as e:
-                            logging.warning(f"⚠️ 定位器#{idx} 失败: {str(e)}")
+                            logging.warning(f"定位器#{idx} 失败: {str(e)}")
                             # self._capture_debug_snapshot(f"locator_{idx}_fail")
                     if not submit_button:
                         self._manual_debug_helper(None)
@@ -1069,7 +1061,7 @@ class AmazonScraper:
                         success = True
                         break
                     except Exception as e:
-                        logging.warning(f"⚠️ 未检测到成功状态: {str(e)}")
+                        logging.warning(f"未检测到成功状态: {str(e)}")
                         self.driver.execute_script("""
                                                                try {
                                                                    document.querySelector('button[data-action=a-popover-close]').click();
@@ -1093,10 +1085,10 @@ class AmazonScraper:
                             submit_button = WebDriverWait(self.driver, 5).until(
                                 EC.element_to_be_clickable(locator)
                             )
-                            logging.info(f"✅ 定位器#{idx} 成功找到设置按钮")
+                            logging.info(f"定位器#{idx} 成功找到设置按钮")
                             break
                         except Exception as e:
-                            logging.warning(f"⚠️ 定位器#{idx} 失败: {str(e)}")
+                            logging.warning(f"定位器#{idx} 失败: {str(e)}")
                             # self._capture_debug_snapshot(f"locator_{idx}_fail")
                     if not submit_button:
                         self._manual_debug_helper(None)
@@ -1122,7 +1114,7 @@ class AmazonScraper:
                         success = True
                         break
                     except Exception as e:
-                        logging.warning(f"⚠️ 未检测到成功状态: {str(e)}")
+                        logging.warning(f"未检测到成功状态: {str(e)}")
                         self.driver.execute_script("""
                                                                try {
                                                                    document.querySelector('button[data-action=a-popover-close]').click();
@@ -1146,10 +1138,10 @@ class AmazonScraper:
                             submit_button = WebDriverWait(self.driver, 5).until(
                                 EC.element_to_be_clickable(locator)
                             )
-                            logging.info(f"✅ 定位器#{idx} 成功找到设置按钮")
+                            logging.info(f"定位器#{idx} 成功找到设置按钮")
                             break
                         except Exception as e:
-                            logging.warning(f"⚠️ 定位器#{idx} 失败: {str(e)}")
+                            logging.warning(f"定位器#{idx} 失败: {str(e)}")
                             # self._capture_debug_snapshot(f"locator_{idx}_fail")
                     if not submit_button:
                         self._manual_debug_helper(None)
@@ -1199,10 +1191,10 @@ class AmazonScraper:
                             submit_button = WebDriverWait(self.driver, 5).until(
                                 EC.element_to_be_clickable(locator)
                             )
-                            logging.info(f"✅ 定位器#{idx} 成功找到设置按钮")
+                            logging.info(f"定位器#{idx} 成功找到设置按钮")
                             break
                         except Exception as e:
-                            logging.warning(f"⚠️ 定位器#{idx} 失败: {str(e)}")
+                            logging.warning(f"定位器#{idx} 失败: {str(e)}")
                             # self._capture_debug_snapshot(f"locator_{idx}_fail")
                     if not submit_button:
                         self._manual_debug_helper(None)
@@ -1228,7 +1220,7 @@ class AmazonScraper:
                         success = True
                         break
                     except Exception as e:
-                        logging.warning(f"⚠️ 未检测到成功状态: {str(e)}")
+                        logging.warning(f"未检测到成功状态: {str(e)}")
                         self.driver.execute_script("""
                                            try {
                                                document.querySelector('button[data-action=a-popover-close]').click();
@@ -1252,10 +1244,10 @@ class AmazonScraper:
                             submit_button = WebDriverWait(self.driver, 5).until(
                                 EC.element_to_be_clickable(locator)
                             )
-                            logging.info(f"✅ 定位器#{idx} 成功找到设置按钮")
+                            logging.info(f"定位器#{idx} 成功找到设置按钮")
                             break
                         except Exception as e:
-                            logging.warning(f"⚠️ 定位器#{idx} 失败: {str(e)}")
+                            logging.warning(f"定位器#{idx} 失败: {str(e)}")
                             # self._capture_debug_snapshot(f"locator_{idx}_fail")
                     if not submit_button:
                         self._manual_debug_helper(None)
@@ -1281,7 +1273,7 @@ class AmazonScraper:
                         success = True
                         break
                     except Exception as e:
-                        logging.warning(f"⚠️ 未检测到成功状态: {str(e)}")
+                        logging.warning(f"未检测到成功状态: {str(e)}")
                         self.driver.execute_script("""
                                            try {
                                                document.querySelector('button[data-action=a-popover-close]').click();
@@ -1305,10 +1297,10 @@ class AmazonScraper:
                             submit_button = WebDriverWait(self.driver, 5).until(
                                 EC.element_to_be_clickable(locator)
                             )
-                            logging.info(f"✅ 定位器#{idx} 成功找到设置按钮")
+                            logging.info(f"定位器#{idx} 成功找到设置按钮")
                             break
                         except Exception as e:
-                            logging.warning(f"⚠️ 定位器#{idx} 失败: {str(e)}")
+                            logging.warning(f"定位器#{idx} 失败: {str(e)}")
                             # self._capture_debug_snapshot(f"locator_{idx}_fail")
                     if not submit_button:
                         self._manual_debug_helper(None)
@@ -1334,7 +1326,7 @@ class AmazonScraper:
                         success = True
                         break
                     except Exception as e:
-                        logging.warning(f"⚠️ 未检测到成功状态: {str(e)}")
+                        logging.warning(f"未检测到成功状态: {str(e)}")
                         self.driver.execute_script("""
                                            try {
                                                document.querySelector('button[data-action=a-popover-close]').click();
@@ -1364,10 +1356,10 @@ class AmazonScraper:
         try:
             self.driver.get(url)
             if self._is_captcha_required():
-                logging.info("⚠️ 检测到验证码，开始处理...")
+                logging.info("检测到验证码，开始处理...")
                 # result = self.solve_captcha()
                 result = self.solve_captcha_new()
-                status_msg = "✅ 已通过验证码" if result else "‼️ 验证码处理失败"
+                status_msg = "已通过验证码" if result else "‼️ 验证码处理失败"
                 logging.info(status_msg)
             else:
                 logging.info(" 当前无验证码")
@@ -1376,10 +1368,10 @@ class AmazonScraper:
         except TimeoutException as e:
             # 新增验证码检测逻辑
             if self._is_captcha_required():
-                logging.info("⚠️ 检测到验证码，开始处理...")
+                logging.info("检测到验证码，开始处理...")
                 # result = self.solve_captcha()
                 result = self.solve_captcha_new()
-                status_msg = "✅ 已通过验证码" if result else "‼️ 验证码处理失败"
+                status_msg = "已通过验证码" if result else "‼️ 验证码处理失败"
                 logging.info(status_msg)
             else:
                 logging.info(" 当前无验证码")
@@ -1662,7 +1654,7 @@ class AmazonScraper:
                 f"邮编输入验证失败：预期 {zip_code}"
             )
 
-            logging.info(f"✅ 邮编输入完成 | 耗时: {time.time() - start_time:.2f}s")
+            logging.info(f"邮编输入完成 | 耗时: {time.time() - start_time:.2f}s")
 
             # self.driver.execute_script("""
             #     document.querySelector('button[data-action=GLUXPostalUpdateAction]').focus();
@@ -1729,7 +1721,7 @@ class AmazonScraper:
                 f"邮编输入验证失败：预期 {zip_code}"
             )
 
-            logging.info(f"✅ 邮编输入完成 | 耗时: {time.time() - start_time:.2f}s")
+            logging.info(f"邮编输入完成 | 耗时: {time.time() - start_time:.2f}s")
 
             # self.driver.execute_script("""
             #     document.querySelector('button[data-action=GLUXPostalUpdateAction]').focus();
@@ -1796,7 +1788,7 @@ class AmazonScraper:
                 f"邮编输入验证失败：预期 {zip_code}"
             )
 
-            logging.info(f"✅ 邮编输入完成 | 耗时: {time.time() - start_time:.2f}s")
+            logging.info(f"邮编输入完成 | 耗时: {time.time() - start_time:.2f}s")
 
             # self.driver.execute_script("""
             #     document.querySelector('button[data-action=GLUXPostalUpdateAction]').focus();
@@ -1889,7 +1881,7 @@ class AmazonScraper:
             # Step 6: 检查是否有成功确认 DOM
 
 
-            logging.info(f"✅ 邮编输入成功 | 耗时: {time.time() - start_time:.2f}s")
+            logging.info(f"邮编输入成功 | 耗时: {time.time() - start_time:.2f}s")
             return True
 
         except Exception as e:
@@ -1955,7 +1947,7 @@ class AmazonScraper:
                 f"邮编输入验证失败：预期 {zip_code}"
             )
 
-            logging.info(f"✅ 邮编输入完成 | 耗时: {time.time() - start_time:.2f}s")
+            logging.info(f"邮编输入完成 | 耗时: {time.time() - start_time:.2f}s")
 
             # self.driver.execute_script("""
             #     document.querySelector('button[data-action=GLUXPostalUpdateAction]').focus();
@@ -2022,7 +2014,7 @@ class AmazonScraper:
                 f"邮编输入验证失败：预期 {zip_code}"
             )
 
-            logging.info(f"✅ 邮编输入完成 | 耗时: {time.time() - start_time:.2f}s")
+            logging.info(f"邮编输入完成 | 耗时: {time.time() - start_time:.2f}s")
 
             # self.driver.execute_script("""
             #     document.querySelector('button[data-action=GLUXPostalUpdateAction]').focus();
@@ -2089,7 +2081,7 @@ class AmazonScraper:
                 f"邮编输入验证失败：预期 {zip_code}"
             )
 
-            logging.info(f"✅ 邮编输入完成 | 耗时: {time.time() - start_time:.2f}s")
+            logging.info(f"邮编输入完成 | 耗时: {time.time() - start_time:.2f}s")
 
             # self.driver.execute_script("""
             #     document.querySelector('button[data-action=GLUXPostalUpdateAction]').focus();
@@ -2317,7 +2309,7 @@ class AmazonScraper:
                 logging.info("未成功点击，邮编未生效")
                 return False
         except Exception:
-            logging.info("✅ Apply 按钮已消失，可能设置成功，继续验证")
+            logging.info("Apply 按钮已消失，可能设置成功，继续验证")
 
         except:
             logging.info(f"点击设置成功")
@@ -2501,7 +2493,7 @@ class AmazonScraper:
                 By.ID, "GLUXHiddenSuccessSelectedAddressPlaceholder"
             ).text
             if actual_zip == target_zip:
-                logging.info(f"✅ 邮编匹配成功: {target_zip}")
+                logging.info(f"邮编匹配成功: {target_zip}")
                 return True
 
             return False
@@ -2536,19 +2528,19 @@ class AmazonScraper:
 
                     # 快速验证（缩短等待时间）
                     if self._check_success_state(target_zip, wait_time=5):  # 从5秒缩短到3秒
-                        logging.info(f"✅ [{strategy_name}] 点击成功并通过验证")
+                        logging.info(f"[{strategy_name}] 点击成功并通过验证")
                         return True
 
                     # 如果已出现成功文本但未完全加载，提前返回
                     if self._is_success_text_present_us(target_zip):
-                        logging.info("⚠️ 检测到成功文本，提前结束尝试")
+                        logging.info("检测到成功文本，提前结束尝试")
                         return True
 
                 except Exception as e:
-                    logging.warning(f"⚠️ [{strategy_name}] 失败: {str(e)}")
+                    logging.warning(f"[{strategy_name}] 失败: {str(e)}")
                     self._highlight_element(element, color="orange")
 
-            logging.warning(f"⚠️ [{strategy_name}] 已达最大重试次数")
+            logging.warning(f"[{strategy_name}] 已达最大重试次数")
 
         return False
 
@@ -2571,19 +2563,19 @@ class AmazonScraper:
 
                     # 快速验证（缩短等待时间）
                     if self._check_success_state(target_zip, wait_time=5):  # 从5秒缩短到3秒
-                        logging.info(f"✅ [{strategy_name}] 点击成功并通过验证")
+                        logging.info(f"[{strategy_name}] 点击成功并通过验证")
                         return True
 
                     # 如果已出现成功文本但未完全加载，提前返回
                     if self._is_success_text_present_es(target_zip):
-                        logging.info("⚠️ 检测到成功文本，提前结束尝试")
+                        logging.info("检测到成功文本，提前结束尝试")
                         return True
 
                 except Exception as e:
-                    logging.warning(f"⚠️ [{strategy_name}] 失败: {str(e)}")
+                    logging.warning(f"[{strategy_name}] 失败: {str(e)}")
                     self._highlight_element(element, color="orange")
 
-            logging.warning(f"⚠️ [{strategy_name}] 已达最大重试次数")
+            logging.warning(f"[{strategy_name}] 已达最大重试次数")
 
         return False
 
@@ -2606,19 +2598,19 @@ class AmazonScraper:
 
                     # 快速验证（缩短等待时间）
                     if self._check_success_state(target_zip, wait_time=5):  # 从5秒缩短到3秒
-                        logging.info(f"✅ [{strategy_name}] 点击成功并通过验证")
+                        logging.info(f"[{strategy_name}] 点击成功并通过验证")
                         return True
 
                     # 如果已出现成功文本但未完全加载，提前返回
                     if self._is_success_text_present_it(target_zip):
-                        logging.info("⚠️ 检测到成功文本，提前结束尝试")
+                        logging.info("检测到成功文本，提前结束尝试")
                         return True
 
                 except Exception as e:
-                    logging.warning(f"⚠️ [{strategy_name}] 失败: {str(e)}")
+                    logging.warning(f"[{strategy_name}] 失败: {str(e)}")
                     self._highlight_element(element, color="orange")
 
-            logging.warning(f"⚠️ [{strategy_name}] 已达最大重试次数")
+            logging.warning(f"[{strategy_name}] 已达最大重试次数")
 
         return False
 
@@ -2641,19 +2633,19 @@ class AmazonScraper:
 
                     # 快速验证（缩短等待时间）
                     if self._check_success_state(target_zip, wait_time=5):  # 从5秒缩短到3秒
-                        logging.info(f"✅ [{strategy_name}] 点击成功并通过验证")
+                        logging.info(f"[{strategy_name}] 点击成功并通过验证")
                         return True
 
                     # 如果已出现成功文本但未完全加载，提前返回
                     if self._is_success_text_present_ca(target_zip):
-                        logging.info("⚠️ 检测到成功文本，提前结束尝试")
+                        logging.info("检测到成功文本，提前结束尝试")
                         return True
 
                 except Exception as e:
-                    logging.warning(f"⚠️ [{strategy_name}] 失败: {str(e)}")
+                    logging.warning(f"[{strategy_name}] 失败: {str(e)}")
                     self._highlight_element(element, color="orange")
 
-            logging.warning(f"⚠️ [{strategy_name}] 已达最大重试次数")
+            logging.warning(f"[{strategy_name}] 已达最大重试次数")
 
         return False
 
@@ -2676,19 +2668,19 @@ class AmazonScraper:
 
                     # 快速验证（缩短等待时间）
                     if self._check_success_state(target_zip, wait_time=5):  # 从5秒缩短到3秒
-                        logging.info(f"✅ [{strategy_name}] 点击成功并通过验证")
+                        logging.info(f"[{strategy_name}] 点击成功并通过验证")
                         return True
 
                     # 如果已出现成功文本但未完全加载，提前返回
                     if self._is_success_text_present_uk(target_zip):
-                        logging.info("⚠️ 检测到成功文本，提前结束尝试")
+                        logging.info(" 检测到成功文本，提前结束尝试")
                         return True
 
                 except Exception as e:
-                    logging.warning(f"⚠️ [{strategy_name}] 失败: {str(e)}")
+                    logging.warning(f"[{strategy_name}] 失败: {str(e)}")
                     self._highlight_element(element, color="orange")
 
-            logging.warning(f"⚠️ [{strategy_name}] 已达最大重试次数")
+            logging.warning(f" [{strategy_name}] 已达最大重试次数")
 
         return False
 
@@ -2711,16 +2703,16 @@ class AmazonScraper:
 
                     # 快速验证（缩短等待时间）
                     if self._check_success_state(target_zip, wait_time=5):  # 从5秒缩短到3秒
-                        logging.info(f"✅ [{strategy_name}] 点击成功并通过验证")
+                        logging.info(f"[{strategy_name}] 点击成功并通过验证")
                         return True
 
                     # 如果已出现成功文本但未完全加载，提前返回
                     if self._is_success_text_present_fr(target_zip):
-                        logging.info("⚠️ 检测到成功文本，提前结束尝试")
+                        logging.info("检测到成功文本，提前结束尝试")
                         return True
 
                 except Exception as e:
-                    logging.warning(f"⚠️ [{strategy_name}] 失败: {str(e)}")
+                    logging.warning(f"[{strategy_name}] 失败: {str(e)}")
                     self._highlight_element(element, color="orange")
 
             logging.warning(f"⚠️ [{strategy_name}] 已达最大重试次数")
@@ -2746,19 +2738,19 @@ class AmazonScraper:
 
                     # 快速验证（缩短等待时间）
                     if self._check_success_state(target_zip, wait_time=5):  # 从5秒缩短到3秒
-                        logging.info(f"✅ [{strategy_name}] 点击成功并通过验证")
+                        logging.info(f" [{strategy_name}] 点击成功并通过验证")
                         return True
 
                     # 如果已出现成功文本但未完全加载，提前返回
                     if self._is_success_text_present_de(target_zip):
-                        logging.info("⚠️ 检测到成功文本，提前结束尝试")
+                        logging.info(" 检测到成功文本，提前结束尝试")
                         return True
 
                 except Exception as e:
-                    logging.warning(f"⚠️ [{strategy_name}] 失败: {str(e)}")
+                    logging.warning(f" [{strategy_name}] 失败: {str(e)}")
                     self._highlight_element(element, color="orange")
 
-            logging.warning(f"⚠️ [{strategy_name}] 已达最大重试次数")
+            logging.warning(f" [{strategy_name}] 已达最大重试次数")
 
         return False
 
@@ -2938,7 +2930,7 @@ class AmazonScraper:
 
 
 if __name__ == '__main__':
-    data = pd.read_csv('E:/git_project/uatu-crawler - 副本/asin.csv')
+    data = pd.read_csv('/asin.csv')
     asinlist = data['asin'].values.tolist()
     logging.basicConfig(
             level=logging.INFO, # 设置日志级别
@@ -2953,12 +2945,13 @@ if __name__ == '__main__':
 
     db_config = {
 
-    "host": "14.103.133.245",
-    "user": "Uatu",
-    'password': "Uatu2025@mysqltest.",
-    'database': "amazon asins"
+    "host": "",
+    "user": "",
+    'password': "",
+    'database': ""
     }
     ProductDetailScraper = ProductDetailScraper(amazon_helper, db_config, nation = "CA")
 
     for i in range(10):
+
         ProductDetailScraper.scrape_and_save(asinlist[i])
