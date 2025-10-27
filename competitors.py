@@ -18,12 +18,12 @@ logger = logging.getLogger(__name__)
 @dataclass
 class Config:
     # mysql
-    # host: str = '69.230.232.95'
-    # user: str = 'Uatu'
-    # password: str = 'Uatu2025@mysqltest.'
-    host: str = '192.168.1.4'
-    user: str = 'mxk'
-    password: str = 'Mm712819830.'
+    # host: str = ''
+    # user: str = ''
+    # password: str = '.'
+    host: str = ''
+    user: str = ''
+    password: str = ''
 
     # 时间窗口
     period_days: int = 7
@@ -439,4 +439,5 @@ if __name__ == "__main__":
     # keyword_run = KeywordsFocusProducts(config)
     # keyword_run.run(ad_asin, keyword)
     app.run(host='0.0.0.0', port=5000, threaded=True)
-    # http://192.168.1.3:5050/competitors/B0CPHPC298/morel mushrooms
+    #
+
