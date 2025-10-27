@@ -43,22 +43,22 @@ class RankFeatures(TypedDict):
 # ======================
 class Config:
     # DB_CONFIG = {
-    #     'host': '192.168.1.4',
-    #     'user': 'mxk',
-    #     'password': 'Mm712819830.',
-    #     'database': 'amazon_asins',
-    #     'charset': 'utf8mb4',
+    #     'host': '',
+    #     'user': '',
+    #     'password': '',
+    #     'database': '',
+    #     'charset': '',
     #     'cursorclass': pymysql.cursors.DictCursor
     # }
     DB_CONFIG = {
-        'host': 'rm-bp1n5rqs1z21tbz965o.mysql.rds.aliyuncs.com',
-        'user': 'Uatu',
-        'password': 'UatuAI@Aliyun2025',
-        'database': 'amazon_asins_ca',
-        'charset': 'utf8mb4',
+        'host': '',
+        'user': '',
+        'password': '',
+        'database': '',
+        'charset': '',
         'cursorclass': pymysql.cursors.DictCursor
     }
-    MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
+    MODEL_NAME = "/all-MiniLM-L6-v2"
     USE_GPU = True
     MAX_URL_LENGTH = 2000
     REQUEST_TIMEOUT = 30
@@ -704,3 +704,4 @@ class AsinSimilarityCalculator:
         competitorClassification, competitorClassification_hk = self.competitor_classification(recommendation_score, review_score)
         data_advice, data_advice_hk = self.comptetitor_advice(main_info, comp_prices, recommendation_score, competitorClassification)
         return a, d, recommendation_score, competitorClassification, competitorClassification_hk, ad_rank, natural_rank, data_advice, data_advice_hk
+
