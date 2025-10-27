@@ -21,9 +21,7 @@ logger = logging.getLogger(__name__)
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 """
-结合卖家精灵 API
-1.需要验证现在卖家精灵数据格式与之前的格式有无区别, 之前的数据内容和现在数据内容的差别，如果有新增字段，写到Gitee文档，并且备份数据库的数据，然后添加新的
-2.整个过程应该是 爬详情页title/des -> 获取卖家精灵数据 ->计算保存
+
 """
 
 
@@ -35,10 +33,10 @@ class KeyWord:
         self.cws_weight = 0.7
         self.pool = redis_pool
 
-        self.seller_api = 'https://api.sellersprite.com/v1/traffic/keyword'
+        self.seller_api = '/keyword'
         self.seller_header = {
-            # 'secret-key': '1ca1257a49c04d3e9635dd8444a7feb5',
-            'secret-key': '0edf9b3dd9ba445196d68bf9bb5e931e',
+            # 'secret-key': '',
+            'secret-key': '',
             'content-type': 'application/json;charset=utf-8',
             'size': '5'
         }
@@ -192,13 +190,13 @@ class KeyWord:
             }
         ]
         # client = OpenAI(
-        #     api_key="sk-junzalgcymtucqihznsatwuhcyeqfueavftjtvisicaatpuh",
-        #     base_url="https://api.siliconflow.cn/v1/",
+        #     api_key="",
+        #     base_url="/v1/",
         # )
-        # url = "https://api.siliconflow.cn/v1/chat/completions"
-        url = 'http://192.168.1.3:11434/api/generate'
+        # url = "/completions"
+        url = '/generate'
         # data = {
-        #     "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-32B",
+        #     "model": "/DeepSeek-R1-Distill-Qwen-32B",
         #     # "model": "deepseek-r1:8b",
         #     "messages": messages,
         #     "max_tokens": 1024,
@@ -218,13 +216,13 @@ class KeyWord:
             }
         }
         headers = {
-            "Authorization": "Bearer sk-junzalgcymtucqihznsatwuhcyeqfueavftjtvisicaatpuh",
+            "Authorization": "ftjtvisicaatpuh",
             "Content-Type": "application/json"
         }
 
         try:
             # response = client.chat.completions.create(
-            #     model="Pro/deepseek-ai/DeepSeek-R1",
+            #     model="/DeepSeek-R1",
             #     messages=messages,
             #     response_format={
             #         'type': 'json_object'
@@ -1619,6 +1617,7 @@ class AmazonKeywordRanker:
             raise
         finally:
             conn.close()
+
 
 
 
